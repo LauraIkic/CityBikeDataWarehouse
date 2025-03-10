@@ -59,7 +59,7 @@ def create_database_if_not_exists():
 def create_member_dimension_table(cursor):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS member_dimension (
-        member_type_id VARCHAR(255) PRIMARY KEY,
+        id VARCHAR(255) PRIMARY KEY,
         type VARCHAR(50)
     );
     """
@@ -69,7 +69,7 @@ def create_member_dimension_table(cursor):
 def create_rideable_dimension_table(cursor):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS rideable_dimension (
-        rideable_type_id VARCHAR(255) PRIMARY KEY,
+        id VARCHAR(255) PRIMARY KEY,
         type VARCHAR(50)
     );
     """
@@ -79,8 +79,7 @@ def create_rideable_dimension_table(cursor):
 def create_ride_facts_table(cursor):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS ride_facts (
-        ride_id VARCHAR(255) PRIMARY KEY,
-        date_id VARCHAR(8),
+        id VARCHAR(255) PRIMARY KEY,
         member_type_id VARCHAR(255),
         rideable_type_id VARCHAR(255),
         start_station_id VARCHAR(50),
@@ -90,12 +89,12 @@ def create_ride_facts_table(cursor):
         trip_duration INT,
         distance DOUBLE PRECISION,
         speed DOUBLE PRECISION,
-        FOREIGN KEY (member_type_id) REFERENCES member_dimension(member_type_id),
-        FOREIGN KEY (rideable_type_id) REFERENCES rideable_dimension(rideable_type_id),
-        FOREIGN KEY (start_station_id) REFERENCES station_dimension(station_id),
-        FOREIGN KEY (end_station_id) REFERENCES station_dimension(station_id),
-        FOREIGN KEY (start_date_id) REFERENCES date_dimension(date_id),
-        FOREIGN KEY (end_date_id) REFERENCES date_dimension(date_id)
+        FOREIGN KEY (member_type_id) REFERENCES member_dimension(id),
+        FOREIGN KEY (rideable_type_id) REFERENCES rideable_dimension(id),
+        FOREIGN KEY (start_station_id) REFERENCES station_dimension(id),
+        FOREIGN KEY (end_station_id) REFERENCES station_dimension(id),
+        FOREIGN KEY (start_date_id) REFERENCES date_dimension(id),
+        FOREIGN KEY (end_date_id) REFERENCES date_dimension(id)
     );
     """
     cursor.execute(create_table_query)
@@ -104,7 +103,7 @@ def create_ride_facts_table(cursor):
 def create_date_dimension_table(cursor):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS date_dimension (
-        date_id VARCHAR(8) PRIMARY KEY,
+        id VARCHAR(50) PRIMARY KEY,
         year INT,
         quarter INT,
         month INT,
@@ -118,7 +117,7 @@ def create_date_dimension_table(cursor):
 def create_station_dimension_table(cursor):         
     create_table_query = """
     CREATE TABLE IF NOT EXISTS station_dimension (
-        station_id VARCHAR(50) PRIMARY KEY,
+        id VARCHAR(50) PRIMARY KEY,
         name VARCHAR(255),
         latitude DOUBLE PRECISION,
         longitude DOUBLE PRECISION
