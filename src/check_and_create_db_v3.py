@@ -46,7 +46,8 @@ def create_database_if_not_exists():
             create_rideable_dimension_table(cursor)
             create_date_dimension_table(cursor)
             create_station_dimension_table(cursor)
-            create_ride_facts_table(cursor)
+            create_time_dimension_table(cursor)
+            create_ride_fact_table(cursor)
             connection.commit()
 
     except Exception as error:
@@ -76,7 +77,7 @@ def create_rideable_dimension_table(cursor):
     cursor.execute(create_table_query)
     print("Table 'rideable_dimension' created (or already exists).")
 
-def create_ride_facts_table(cursor):
+def create_ride_fact_table(cursor):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS ride_fact (
         id UUID PRIMARY KEY,
@@ -120,7 +121,7 @@ def create_time_dimension_table(cursor):
         id UUID PRIMARY KEY,
         second INT,
         minute INT,
-        hour INT,
+        hour INT
     );
     """
     cursor.execute(create_table_query)
