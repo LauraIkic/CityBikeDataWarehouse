@@ -150,7 +150,7 @@ def query_data():
         )
 
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM ride_facts LIMIT 10;")
+            cursor.execute("SELECT * FROM ride_fact LIMIT 10;")
             rows = cursor.fetchall()
 
             for row in rows:
