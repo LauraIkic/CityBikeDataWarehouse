@@ -78,7 +78,7 @@ def create_rideable_dimension_table(cursor):
 
 def create_ride_facts_table(cursor):
     create_table_query = """
-    CREATE TABLE IF NOT EXISTS ride_facts (
+    CREATE TABLE IF NOT EXISTS ride_fact (
         id UUID PRIMARY KEY,
         member_type_id UUID,
         rideable_type_id UUID,
@@ -98,7 +98,7 @@ def create_ride_facts_table(cursor):
     );
     """
     cursor.execute(create_table_query)
-    print("Table 'ride_facts' created (or already exists).")
+    print("Table 'ride_fact' created (or already exists).")
     
 def create_date_dimension_table(cursor):
     create_table_query = """
