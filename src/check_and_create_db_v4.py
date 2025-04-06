@@ -114,6 +114,10 @@ def create_date_dimension_table(cursor):
         quarter INT,
         month INT,
         week INT,
+        day INT, 
+        hour INT,
+        minute INT,
+        second INT,
         date TIMESTAMP
     );
     """
@@ -198,12 +202,16 @@ def write_csv_to_database():
     date_df['month'] = date_df['date'].dt.month
     date_df['week'] = date_df['date'].dt.isocalendar().week
     date_df['quarter'] = date_df['date'].dt.quarter
+    date_df['day'] = date_df['date'].dt.day
+    date_df['hour'] = date_df['date'].dt.hour
+    date_df['minute'] = date_df['date'].dt.minute
+    date_df['second'] = date_df['date'].dt.second
     
     # Optional: remove duplicates if you want to avoid repeated dates
     date_df = date_df.drop_duplicates(subset=['date'])
 
     # Final column order (you can modify)
-    date_df = date_df[['id', 'date', 'year', 'month', 'quarter', 'week']]
+    date_df = date_df[['id', 'date', 'year', 'month', 'quarter', 'week', 'day', 'hour', 'minute', 'second']]
 
     # Insert into Postgres with explicit types
     date_df.to_sql(
@@ -217,7 +225,11 @@ def write_csv_to_database():
             'year': Integer,
             'month': Integer,
             'quarter': Integer,
-            'week': Integer
+            'week': Integer,
+            'day': Integer,
+            'hour': Integer,
+            'minute': Integer,
+            'second': Integer,
         }
     )
 
